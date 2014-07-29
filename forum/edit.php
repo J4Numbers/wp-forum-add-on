@@ -36,6 +36,17 @@ $thread = $forum->getThreadInfo($post['thread']);
     <form class="edit_form" action="scripts/post.php" method="post" >
         <input type="hidden" name="id" value="<?php echo $post['ID']; ?>" />
         <input type="hidden" name="thread" value="<?php echo $thread['ID']; ?>" />
+
+        <?php if ($forum->isOriginalPost($post['ID'],$thread['ID'])) { ?>
+
+            <div class="edit_title" >
+                <p><label for="edit_title">Thread Title</label></p>
+                <input id="edit_title" name="title" class="input" value="<?php
+                echo $forum->washText($thread['name']); ?>" />
+            </div>
+
+        <?php } ?>
+
         <div class="edit_reply" >
             <p><label for="edit_reply">Thread Reply</label></p>
             <textarea id="edit_reply" name="reply" class="input" ><?php
