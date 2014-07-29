@@ -17,7 +17,10 @@ if Wordpress is installed in a '/blog/' directory, just drag the contents of the
 To-Do List
 --------------------------------
 
-- Test the editability of the Heads and Categories
-- Add icons for the Threads and Categories
-- Clear out static configs and make them dynamic
-- Add an installation script for the database
+- Test the editability of the Heads
+- Add icons for the Categories
+
+Personal Notes
+--------------------------------
+
+- wp-forum-config is marked as assume-unchanged
