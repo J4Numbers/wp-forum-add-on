@@ -1,10 +1,11 @@
-/post-formats
+/.idea/
+/post-formats/
 /index.php
 /license.txt
 /readme.html
-/wp-admin
-/wp-content
-/wp-includes
+/wp-admin/
+/wp-content/
+/wp-includes/
 /wp-activate.php
 /wp-blog-header.php
 /wp-comments-post.php
@@ -20,4 +21,4 @@
 /wp-trackback.php
 /xmlrpc.php
 /wp_config.php
-/library
+/library/
