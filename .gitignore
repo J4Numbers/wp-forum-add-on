@@ -9,6 +9,7 @@
 /wp-blog-header.php
 /wp-comments-post.php
 /wp-config.php
+/wp-forum-config.php
 /wp-cron.php
 /wp-links-opml.php
 /wp-load.php
