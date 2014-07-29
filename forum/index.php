@@ -15,10 +15,7 @@
  * limitations under the License.
  */
 
-ini_set('display_errors','1');
-
-// TODO: Test editable Heads and Cats
-// TODO: Add in icons for threads and categories
+//ini_set('display_errors','1');
 
 $home_dir = getcwd()."/../";
 
