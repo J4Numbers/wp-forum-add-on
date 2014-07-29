@@ -507,7 +507,7 @@ class ForumManager extends CentralDatabase {
         } catch (PDOException $e) {
             die($e->getMessage());
         }
-        
+
     }
 
     public function addPostToThread($thread, $poster, $content) {
