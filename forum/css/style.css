@@ -245,8 +245,16 @@ blockquote.quote > .quoted {
   vertical-align:bottom;
 }
 
+.thread_avatar {
+  display:block;
+  width:78px;
+  margin:0 auto;
+  float:left;
+}
+
 .thread_text {
   display:block;
+  margin-left:20px;
   float:left;
 }
 
@@ -275,8 +283,12 @@ blockquote.quote > .quoted {
   margin: 0 auto;
 }
 
-.avatar {
+.avatar-96 {
   border-radius:48px;
+}
+
+.avatar-78 {
+  border-radius:39px;
 }
 
 .post_created, .post_creator, .post_functions,

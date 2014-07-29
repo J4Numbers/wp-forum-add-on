@@ -56,6 +56,9 @@ $viewable = $forum->generateViewablePages($cur_page,$pages,'cat',$_GET['id'],$ra
                 } else { ?>
 
                     <div class="thread" >
+                        <div class="thread_avatar" >
+                            <?php echo get_wp_user_avatar($thread['creator'],78); ?>
+                        </div>
                         <div class="thread_text">
                             <a href="index.php?mode=thread&id=<?php echo $thread['ID']; ?>" >
                                 <h3 class="thread_title"><?php echo $forum->washText($thread['name']); ?></h3>
