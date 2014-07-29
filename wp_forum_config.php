@@ -15,24 +15,14 @@
  * limitations under the License.
  */
 
-$home_dir = getcwd()."/../../";
+/**
+ * This is what the config file should look like, minus all the comments
+ * in any case.
+ */
+define("CY_FORUM_PREFIX","prefix");
 
-define('WP_USE_THEMES',false);
-require_once $home_dir."wp-blog-header.php";
-require_once $home_dir."wp-forum-config.php";
-require_once $home_dir."classes/ForumManager.php";
-require_once $home_dir."classes/SessionManager.php";
-
-$session = new SessionManager();
-$forum = new ForumManager($home_dir, CY_FORUM_PREFIX, $table_prefix);
-
-if (isset($_POST['id'])) {
-
-    if (isset($_POST['get'])) {
-
-        $head = $forum->getHeadInfo($_POST['id']);
-        $head['desc'] = $forum->washText($head['desc']);
-        echo json_encode($head);
-
-    }
-}
+/**
+ * Simples. If your file was not writable, just copy and paste the line
+ * above into wp-forum-config.php and change the 'prefix' string to whatever
+ * you want... within reason anyway. Can't be having any of those pesky spaces.
+ */

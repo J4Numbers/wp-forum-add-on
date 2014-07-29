@@ -19,13 +19,17 @@ require_once $home_dir."classes/CentralDatabase.php";
 
 class ForumManager extends CentralDatabase {
 
-    public function __construct($home_dir) {
-        parent::__construct($home_dir);
+    public function __construct($home_dir,$f_prefix,$wp_prefix) {
+        parent::__construct($home_dir,$f_prefix,$wp_prefix);
+    }
+
+    public function install($sql) {
+        parent::executeStatement(parent::makePreparedStatement($sql));
     }
 
     public function getAllHeads() {
 
-        $sql = "SELECT * FROM `wp_forum_heads` ORDER BY `order` ASC";
+        $sql = "SELECT * FROM `~heads` ORDER BY `order` ASC";
 
         try {
 
@@ -41,7 +45,7 @@ class ForumManager extends CentralDatabase {
 
         $vars = array(":head" => $id);
 
-        $sql = "SELECT * FROM `wp_forum_heads` WHERE `ID`=:head";
+        $sql = "SELECT * FROM `~heads` WHERE `ID`=:head";
 
         try {
 
@@ -57,9 +61,9 @@ class ForumManager extends CentralDatabase {
 
     public function getAllCats() {
 
-        $sql = "SELECT `wp_forum_cats`.`ID`,`wp_forum_cats`.`name`,`wp_forum_cats`.`desc`,
-                `wp_forum_heads`.`name` as `head` FROM `wp_forum_cats`
-                INNER JOIN `wp_forum_heads` ON `wp_forum_heads`.`ID`=`wp_forum_cats`.`head`";
+        $sql = "SELECT c.`ID`,c.`name`,c.`desc`,
+                h.`name` as `head` FROM `~cats` c
+                INNER JOIN `~heads` h ON h.`ID`=c.`head`";
 
         try {
 
@@ -75,7 +79,7 @@ class ForumManager extends CentralDatabase {
 
         $vars = array(":head" => $headId);
 
-        $sql = "SELECT * FROM `wp_forum_cats` WHERE `head`=:head";
+        $sql = "SELECT * FROM `~cats` WHERE `head`=:head";
 
         try {
 
@@ -91,7 +95,7 @@ class ForumManager extends CentralDatabase {
 
         $vars = array(":cat" => $id);
 
-        $sql = "SELECT * FROM `wp_forum_cats` WHERE `ID`=:cat";
+        $sql = "SELECT * FROM `~cats` WHERE `ID`=:cat";
 
         try {
 
@@ -109,11 +113,11 @@ class ForumManager extends CentralDatabase {
 
         $vars = array(":cat"=>$catId);
 
-        $sql = "SELECT `wp_forum_threads`.`ID`,`name`,`cat`,`wp_forum_threads`.`time`,`creator`,`display_name`
-                FROM `wp_forum_threads`
-                INNER JOIN `wp_forum_posts` ON `wp_forum_posts`.`thread`=`wp_forum_threads`.`ID`
-                INNER JOIN `cyni_wp_users` ON `cyni_wp_users`.`ID`=`wp_forum_posts`.`poster`
-                WHERE `cat`=:cat ORDER BY `wp_forum_posts`.`time` DESC LIMIT 1";
+        $sql = "SELECT t.`ID`,`name`,`cat`,t.`time`,`creator`,`display_name`
+                FROM `~threads` t
+                INNER JOIN `~posts` p ON p.`thread`=t.`ID`
+                INNER JOIN `#users` u ON u.`ID`=p.`poster`
+                WHERE `cat`=:cat ORDER BY p.`time` DESC LIMIT 1";
 
         try {
 
@@ -133,9 +137,9 @@ class ForumManager extends CentralDatabase {
         );
 
         $sql = sprintf(
-            "SELECT `wp_forum_threads`.`ID`,`name`,`cat`,`time`,`creator`,`display_name`
-            FROM `wp_forum_threads`
-            INNER JOIN `cyni_wp_users` ON `cyni_wp_users`.`ID`=`wp_forum_threads`.`creator`
+            "SELECT t.`ID`,`name`,`cat`,`time`,`creator`,`display_name`
+            FROM `~threads` t
+            INNER JOIN `#users` u ON u.`ID`=t.`creator`
             WHERE `cat`=:cat ORDER BY `time` DESC
             LIMIT %d,%d",(($page-1)*$limit),$limit);
 
@@ -155,7 +159,7 @@ class ForumManager extends CentralDatabase {
             ":cat" => $catId
         );
 
-        $sql = "SELECT count(*) AS `total` FROM `wp_forum_threads`
+        $sql = "SELECT count(*) AS `total` FROM `~threads`
                 WHERE `cat`=:cat";
 
         try {
@@ -175,7 +179,7 @@ class ForumManager extends CentralDatabase {
 
         $vars = array(":thread" => $id);
 
-        $sql = "SELECT * FROM `wp_forum_threads` WHERE `ID`=:thread";
+        $sql = "SELECT * FROM `~threads` WHERE `ID`=:thread";
 
         try {
 
@@ -205,9 +209,9 @@ class ForumManager extends CentralDatabase {
         );
 
         $sql = sprintf(
-            "SELECT `wp_forum_posts`.`ID`,`thread`,`time`,`content`,`poster`,`edited_by`,
-            `last_edited`,`display_name` FROM `wp_forum_posts`
-            INNER JOIN `cyni_wp_users` ON `cyni_wp_users`.`ID`=`wp_forum_posts`.`poster`
+            "SELECT p.`ID`,`thread`,`time`,`content`,`poster`,`edited_by`,
+            `last_edited`,`display_name` FROM `~posts` p
+            INNER JOIN `#users` u ON u.`ID`=p.`poster`
             WHERE `thread`=:thread LIMIT %d,%d",(($page-1)*$limit),$limit);
 
         try {
@@ -226,7 +230,7 @@ class ForumManager extends CentralDatabase {
             ":thread" => $id,
         );
 
-        $sql = "SELECT p.*, (@rownum:=@rownum+1) as `rows` FROM `wp_forum_posts` p,
+        $sql = "SELECT p.*, (@rownum:=@rownum+1) as `rows` FROM `~posts` p,
                 (SELECT @rownum:=0) r WHERE `thread`=:thread";
 
         try {
@@ -245,8 +249,8 @@ class ForumManager extends CentralDatabase {
             ":cat" => $id
         );
 
-        $sql = "SELECT p.*, t.* FROM `wp_forum_threads` t
-                INNER JOIN `wp_forum_posts` p ON t.`ID`=p.`thread`
+        $sql = "SELECT p.*, t.* FROM `~threads` t
+                INNER JOIN `~posts` p ON t.`ID`=p.`thread`
                 WHERE t.`cat`=:cat";
 
         try {
@@ -265,7 +269,7 @@ class ForumManager extends CentralDatabase {
             ":cat" => $id
         );
 
-        $sql = "SELECT p.*, (@rownum:=@rownum+1) as `rows` FROM `wp_forum_threads` p,
+        $sql = "SELECT p.*, (@rownum:=@rownum+1) as `rows` FROM `~threads` p,
                 (SELECT @rownum:=0) r WHERE `cat`=:cat";
 
         try {
@@ -280,8 +284,8 @@ class ForumManager extends CentralDatabase {
 
     public function getRecentThreads() {
 
-        $sql = "SELECT t.*, `display_name` FROM `wp_forum_threads` t
-                INNER JOIN `cyni_wp_users` u ON u.`ID`=t.`creator`
+        $sql = "SELECT t.*, `display_name` FROM `~threads` t
+                INNER JOIN `#users` u ON u.`ID`=t.`creator`
                 ORDER BY `time` LIMIT 3";
 
         try  {
@@ -300,10 +304,10 @@ class ForumManager extends CentralDatabase {
             ":id" => $threadId
         );
 
-        $sql = "SELECT `wp_forum_posts`.`ID`,`thread`,`time`,`content`,`poster`,`edited_by`,
-                `last_edited`,`display_name` FROM `wp_forum_posts`
-                INNER JOIN `cyni_wp_users` ON `cyni_wp_users`.`ID`=`wp_forum_posts`.`poster`
-                WHERE `thread`=:id ORDER BY `wp_forum_posts`.`time` DESC LIMIT 1";
+        $sql = "SELECT p.`ID`,`thread`,`time`,`content`,`poster`,`edited_by`,
+                `last_edited`,`display_name` FROM `~posts` p
+                INNER JOIN `#users` u ON u.`ID`=p.`poster`
+                WHERE `thread`=:id ORDER BY p.`time` DESC LIMIT 1";
 
         try {
 
@@ -328,10 +332,10 @@ class ForumManager extends CentralDatabase {
             ":pos" => $pos
         );
 
-        $sql = "INSERT INTO `wp_forum_heads` (`name`,`desc`,`order`)
+        $sql = "INSERT INTO `~heads` (`name`,`desc`,`order`)
                 VALUES (:title, :desc, :pos)";
 
-        $sql2 = "UPDATE `wp_forum_heads` SET `order`=`order`+1
+        $sql2 = "UPDATE `~heads` SET `order`=`order`+1
                 WHERE `order` >= :pos";
 
         try {
@@ -347,14 +351,17 @@ class ForumManager extends CentralDatabase {
 
     public function editHead($id, $title, $desc, $pos) {
 
+        $head = $this->getHeadInfo($id);
+
+        if ($head['pos'] == $pos-1)
+            $pos = $head['pos'];
+
         $vars3 = array(
             ":id" => $id,
             ":title" => $title,
             ":desc" => $desc,
             ":pos" => $pos
         );
-
-        $head = $this->getHeadInfo($id);
 
         $vars1 = array(
             ":pos" => $head['pos'],
@@ -364,16 +371,16 @@ class ForumManager extends CentralDatabase {
             ":pos" => $pos
         );
 
-        $sql3 = "UPDATE `wp_forum_heads` SET
+        $sql3 = "UPDATE `~heads` SET
                   `name` = :title,
                   `desc` = :desc,
                   `order` = :pos
                 WHERE `ID`=:id";
 
-        $sql1 = "UPDATE `wp_forum_heads` SET `order`=`order`-1
+        $sql1 = "UPDATE `~heads` SET `order`=`order`-1
                 WHERE `order` >= :pos";
 
-        $sql2 = "UPDATE `wp_forum_heads` SET `order`=`order`+1
+        $sql2 = "UPDATE `~heads` SET `order`=`order`+1
                 WHERE `order` >= :pos";
 
         try {
@@ -396,7 +403,7 @@ class ForumManager extends CentralDatabase {
             ":desc" => $desc
         );
 
-        $sql = "INSERT INTO `wp_forum_cats` (`head`,`name`,`desc`)
+        $sql = "INSERT INTO `~cats` (`head`,`name`,`desc`)
                 VALUES (:head, :title, :desc)";
 
         try {
@@ -418,7 +425,7 @@ class ForumManager extends CentralDatabase {
             ":desc" => $desc
         );
 
-        $sql = "UPDATE `wp_forum_cats` SET
+        $sql = "UPDATE `~cats` SET
                   `name` = :title,
                   `desc` = :desc,
                   `head` = :head
@@ -443,7 +450,7 @@ class ForumManager extends CentralDatabase {
             ":time" => time()
         );
 
-        $sql = "INSERT INTO `wp_forum_threads`
+        $sql = "INSERT INTO `~threads`
                 (`cat`,`name`,`time`,`creator`) VALUES
                 (:cat, :title, :time, :poster)";
 
@@ -469,7 +476,7 @@ class ForumManager extends CentralDatabase {
             ":edited" => time()
         );
 
-        $sql = "INSERT INTO `wp_forum_posts`
+        $sql = "INSERT INTO `~posts`
                 (`thread`,`poster`,`time`,`content`,`edited_by`,`last_edited`) VALUES
                 (:thread, :poster, :posted, :content, :editor, :edited)";
 
@@ -492,7 +499,7 @@ class ForumManager extends CentralDatabase {
             ":edited" => time()
         );
 
-        $sql = "UPDATE `wp_forum_posts` SET
+        $sql = "UPDATE `~posts` SET
                 `content` = :content,
                 `edited_by` = :editor,
                 `last_edited` = :edited
@@ -514,8 +521,8 @@ class ForumManager extends CentralDatabase {
 
         $sql = "SELECT p.`ID`,`thread`,`poster`,`time`,`content`,`edited_by`,
                 `last_edited`,`display_name`
-                FROM `wp_forum_posts` p
-                INNER JOIN `cyni_wp_users` u ON u.`ID`=p.`poster`
+                FROM `~posts` p
+                INNER JOIN `#users` u ON u.`ID`=p.`poster`
                 WHERE p.`ID`=:id";
 
         try {
@@ -535,7 +542,7 @@ class ForumManager extends CentralDatabase {
             ":thread" => $id
         );
 
-        $sql = "SELECT count(*) AS `total` FROM `wp_forum_posts`
+        $sql = "SELECT count(*) AS `total` FROM `~posts`
                 WHERE `thread`=:thread";
 
         try {

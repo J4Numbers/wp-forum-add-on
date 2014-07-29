@@ -19,17 +19,20 @@ $home_dir = getcwd()."/../../";
 
 define('WP_USE_THEMES',false);
 require_once $home_dir."wp-blog-header.php";
+require_once $home_dir."wp-forum-config.php";
 require_once $home_dir."classes/ForumManager.php";
 require_once $home_dir."classes/SessionManager.php";
 
 $session = new SessionManager();
-$forum = new ForumManager($home_dir);
+$forum = new ForumManager($home_dir, CY_FORUM_PREFIX, $table_prefix);
 
 if (isset($_POST['id'])) {
 
     if (isset($_POST['get'])) {
 
-        echo json_encode($forum->getCatInfo($_POST['id']));
+        $cat = $forum->getCatInfo($_POST['id']);
+        $cat['desc'] = $forum->washText($cat['desc']);
+        echo json_encode($cat);
 
     }
 }

@@ -96,7 +96,8 @@ blockquote.quote > .quoted {
   color:#efefef;
 }
 
-.thread_form, .a_cat_form, .a_head_form, .admin_table, .edit_form {
+.thread_form, .a_cat_form, .a_head_form, .admin_table,
+.edit_form, .install_form {
   width: 700px;
   padding:20px;
   margin:0 auto;
@@ -104,7 +105,8 @@ blockquote.quote > .quoted {
   border-radius:5px;
 }
 
-#thread_submit, .a_head_submit, .a_cat_submit, .edit_submit {
+#thread_submit, .a_head_submit, .a_cat_submit, .edit_submit,
+#install_submit {
   width:100%;
 }
 

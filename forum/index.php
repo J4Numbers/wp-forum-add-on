@@ -21,16 +21,26 @@ $home_dir = getcwd()."/../";
 
 define('WP_USE_THEMES',false);
 require_once $home_dir."wp-blog-header.php";
+require_once $home_dir."wp-forum-config.php";
 require_once $home_dir."classes/SessionManager.php";
 require_once $home_dir."classes/ForumManager.php";
 require_once $home_dir."classes/JBBCode/Parser.php";
 require_once $home_dir."classes/PostBBCodes.php";
 
+if (!defined("CY_FORUM_PREFIX") || defined("CY_DB_WAITING") ) {
+    if ( $_GET['mode'] != "install" ) {
+        header("Location: ".site_url('/wp-forum-install.php'));
+    }
+}
+
+if (!defined("CY_FORUM_PREFIX"))
+    define("CY_FORUM_PREFIX","");
+
 $parser = new JBBCode\Parser();
 $parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
 $parser->addCodeDefinitionSet(new PostBBCodes());
 $session = new SessionManager();
-$forum = new ForumManager($home_dir);
+$forum = new ForumManager($home_dir, CY_FORUM_PREFIX, $table_prefix);
 
 $limit = 10;
 $range = 2;
@@ -53,6 +63,15 @@ if ($_GET['mode']=="thread") {
     $loc .= " / <a href='index.php?mode=thread&id=".$_GET['id']."'>".$forum->washText($thread['name'])."</a>";
 
 }
+
+?>
+
+<link type="text/css" rel="stylesheet" href="<?php echo site_url('/forum/css/style.css'); ?>" />
+<script type="text/javascript" src="<?php echo site_url('/forum/js/essentials.js');?>"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" ></script>
+<script type="text/javascript" src="<?php echo site_url('/forum/js/insert.js'); ?>" ></script>
+
+<?php
 
 get_header();
 
@@ -110,6 +129,10 @@ get_header();
 
             case "admin" :
                 require_once $home_dir."forum/admin.php";
+                break;
+
+            case "install" :
+                require_once $home_dir."forum/install.php";
                 break;
 
             default : {
