@@ -32,6 +32,9 @@ if (!$session->isLoggedIn())
 
 if (isset($_POST['id'])) {
 
+    if (isset($_POST['title']))
+        $forum->editThread($_POST['thread'],$_POST['title']);
+
     $forum->editPost(
         $_POST['id'],
         $_POST['reply'],

@@ -41,6 +41,30 @@ class ForumManager extends CentralDatabase {
 
     }
 
+    public function isOriginalPost($post, $thread) {
+
+        $vars = array(":id"=>$thread);
+
+        $sql = "SELECT `ID` FROM `~posts`
+                WHERE `thread`=:id ORDER BY `ID` ASC LIMIT 1";
+
+        try {
+
+            $res = parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
+
+            if ($res->rowCount()==0) {
+                return false;
+            } else {
+                $row = $res->fetch();
+                return $post == $row['ID'];
+            }
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+
+    }
+
     public function getHeadInfo($id) {
 
         $vars = array(":head" => $id);
@@ -463,6 +487,27 @@ class ForumManager extends CentralDatabase {
             die($e->getMessage());
         }
 
+    }
+
+    public function editThread($id, $title) {
+
+        $vars = array(
+            ":id" => $id,
+            ":title" => $title
+        );
+
+        $sql = "UPDATE `~threads` SET
+                `name`=:title
+                WHERE `ID`=:id";
+
+        try {
+
+            parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+        
     }
 
     public function addPostToThread($thread, $poster, $content) {
