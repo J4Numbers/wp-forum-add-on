@@ -5,9 +5,12 @@
 --------------------------------------
 */
 
-USE `m4numbers`;
+/*
+ -- @ = Forum
+ -- # = Wordpress
+ */
 
-CREATE TABLE `wp_forum_heads` (
+CREATE TABLE `@heads` (
   `ID` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `desc` VARCHAR (128) NOT NULL,
@@ -15,33 +18,33 @@ CREATE TABLE `wp_forum_heads` (
   PRIMARY KEY (`ID`)
 );
 
-INSERT INTO `wp_forum_heads` (`name`,`desc`,`order`) VALUES ('Testing','Welcome','1');
+INSERT INTO `@heads` (`name`,`desc`,`order`) VALUES ('Your First Heading','Welcome!','1');
 
-CREATE TABLE `wp_forum_cats` (
+CREATE TABLE `@cats` (
   `ID` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `head` INTEGER(11) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `desc` VARCHAR(128) NOT NULL,
   PRIMARY KEY (`ID`),
-  FOREIGN KEY (`head`) REFERENCES `wp_forum_heads`(`ID`)
+  FOREIGN KEY (`head`) REFERENCES `@heads`(`ID`)
 );
 
-INSERT INTO `wp_forum_cats` (`head`,`name`,`desc`) VALUES ('1','Hola!','This is another test');
+INSERT INTO `@cats` (`head`,`name`,`desc`) VALUES ('1','Your First Category','Welcome!');
 
-CREATE TABLE `wp_forum_threads` (
+CREATE TABLE `@threads` (
   `ID` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `cat` INTEGER(11) NOT NULL,
   `name` VARCHAR(128) NOT NULL,
   `time` INTEGER(11) NOT NULL,
   `creator` BIGINT(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`ID`),
-  FOREIGN KEY (`cat`) REFERENCES `wp_forum_cats`(`ID`),
-  FOREIGN KEY (`creator`) REFERENCES `cyni_wp_users`(`ID`)
+  FOREIGN KEY (`cat`) REFERENCES `@cats`(`ID`),
+  FOREIGN KEY (`creator`) REFERENCES `#users`(`ID`)
 );
 
-INSERT INTO `wp_forum_threads` (`cat`,`name`,`time`,`creator`) VALUES ('1','Bonjour!','1','1');
+INSERT INTO `@threads` (`cat`,`name`,`time`,`creator`) VALUES ('1','Your First Thread','1','1');
 
-CREATE TABLE `wp_forum_posts` (
+CREATE TABLE `@posts` (
   `ID` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `thread` INTEGER(11) NOT NULL,
   `time` INTEGER(11) NOT NULL,
@@ -50,10 +53,10 @@ CREATE TABLE `wp_forum_posts` (
   `last_edited` INTEGER(11) NOT NULL,
   `edited_by` BIGINT(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`ID`),
-  FOREIGN KEY (`thread`) REFERENCES `wp_forum_threads`(`ID`),
-  FOREIGN KEY (`poster`) REFERENCES `cyni_wp_users`(`ID`),
-  FOREIGN KEY (`edited_by`) REFERENCES `cyni_wp_users`(`ID`)
+  FOREIGN KEY (`thread`) REFERENCES `@threads`(`ID`),
+  FOREIGN KEY (`poster`) REFERENCES `#users`(`ID`),
+  FOREIGN KEY (`edited_by`) REFERENCES `#users`(`ID`)
 );
 
-INSERT INTO `wp_forum_posts` (`thread`,`time`,`content`,`poster`,`last_edited`,`edited_by`) VALUES
-  ('1','1','Guten Tag!','1','1','1');
+INSERT INTO `@posts` (`thread`,`time`,`content`,`poster`,`last_edited`,`edited_by`) VALUES
+  ('1','1','This is your first post! Congratulations!','1','1','1');

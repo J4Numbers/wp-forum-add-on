@@ -38,22 +38,36 @@ class CentralDatabase {
 	 */
 	private $home_dir;
 
+    /**
+     * @var string
+     */
+    private $f_prefix;
+
+    /**
+     * @var string
+     */
+    private $wp_prefix;
+
 
 	/**
 	 * @var string The location of the config file
 	 */
 	private $conf_dir;
 
-	/**
-	 * Connect to the chosen database with the selected
-	 * configuration options.
-	 *
-	 * @param string $base The installation directory of the store
-	 */
-	protected function __construct( $base ) {
+    /**
+     * Connect to the chosen database with the selected
+     * configuration options.
+     *
+     * @param string $base The installation directory of the store
+     * @param $f_prefix
+     * @param $wp_prefix
+     */
+	protected function __construct( $base, $f_prefix, $wp_prefix ) {
 
 		//Let's create all the local variables...
 		$this->home_dir  =  $base;
+        $this->f_prefix = $f_prefix;
+        $this->wp_prefix = $wp_prefix;
 
 		//And some more
 		$this->conf_dir  = "$base/wp-config.php";
@@ -104,7 +118,8 @@ class CentralDatabase {
 
 			//Replace all implementations of the special character with
 			// the prefix of the tables that we've been provided with
-		//	$string = sprintf(str_replace('@','%1$s',$string ),$this->prefix);
+			$string = sprintf(str_replace('~','%1$s',$string ),$this->f_prefix);
+			$string = sprintf(str_replace('#','%1$s',$string ),$this->wp_prefix);
 			return $this->pdo_base->prepare( $string );
 
 		} catch (PDOException $ex) {

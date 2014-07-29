@@ -31,8 +31,11 @@ window.onload = function() {
 };
 
 function toggleMature() {
-    var c = confirm("Please confirm that you are of the legal age to view mature material in your country.");
-    if (!c) return;
+    if (localStorage['allow_mature']!=1) {
+        var c = confirm("Please confirm that you are of the legal age to view mature material in your country.");
+        if (!c) return;
+    }
+
     localStorage['allow_mature'] = (localStorage['allow_mature']!="1") ? "1" : "0";
     location.reload();
 }
