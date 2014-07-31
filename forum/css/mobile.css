@@ -1,0 +1,109 @@
+/**
+ * Copyright 2014 Matthew David Ball (numbers@cynicode.co.uk)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* iPhone / mobile webkit */
+@media screen and (max-device-width: 480px) {
+
+  .topbar {
+    width: 100% !important;
+    border-radius:0 !important;
+    text-align:left !important;
+    height: auto !important;
+    padding-left:10px !important;
+  }
+
+  .topbar_booster {
+    height: 0 !important;
+  }
+
+  #spacing {
+    width: 100% !important;
+  }
+
+  .forum {
+    width:100% !important;
+    float: none !important;
+  }
+
+  .cat {
+    padding-left: 20px !important;
+  }
+
+  .cat_latest {
+    float: left !important;
+  }
+
+  .thread_latest {
+    float: left !important;
+    padding-left:20px;
+  }
+
+  .thread_avatar {
+    display:none !important;
+  }
+
+  .post_meta {
+    width:100% !important;
+  }
+
+  .post_data {
+    width:100% !important;
+    padding: 0 10px !important;
+  }
+
+  .post_data * {
+    max-width:100% !important;
+  }
+
+  .youtube {
+    max-width:100% !important;
+  }
+
+  .iphone_line {
+    clear:both;
+    height: 1px;
+  }
+
+  .iphone_booster {
+    clear:both;
+    height:10px;
+  }
+
+  .stats {
+    float:none !important;
+    width:100% !important;
+  }
+
+  .forum_location {
+    float: none !important;
+    padding-left:0 !important;
+  }
+
+  .topbar * {
+  }
+
+  .thread_form, .a_cat_form, .a_head_form,
+  .admin_table, .edit_form, .install_form {
+    width: 100% !important;
+    border-radius:0 !important;
+  }
+
+  .reply {
+    width: 100% !important;
+    border-radius:0 !important;
+  }
+
+}

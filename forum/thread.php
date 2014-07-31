@@ -50,6 +50,10 @@ $viewable = $forum->generateViewablePages($cur_page,$pages,'thread',$_GET['id'],
                     <div class="post_avatar" ><?php echo get_wp_user_avatar($post['poster'],96); ?></div>
                     <p class="post_creator"><?php echo $post['display_name']; ?></p>
                     <p class="post_created">Posted <?php echo date('jS F Y, G:i',$post['time']); ?></p>
+                    <p class="post_edited">
+                        Last edited <?php echo date('jS F Y, G:i',$post['last_edited']); ?> by
+                        <?php echo $forum->getUserName($post['edited_by']); ?>
+                    </p>
                     <p class="post_perma"><a href="index.php?mode=thread&id=<?php
                         echo $_GET['id']; ?>#p<?php echo $post['ID']; ?>" >Permalink</a></p>
                     <?php if ($session->isLoggedIn()) { ?>

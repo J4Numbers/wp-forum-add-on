@@ -84,11 +84,13 @@ get_header();
 
 ?>
 
-<div class="booster" ></div>
+<div class="booster topbar_booster" ></div>
 
 <div class="topbar" >
 
     <div class="forum_location" ><?php echo $loc; ?></div>
+
+    <div class="iphone_booster" ></div>
 
     <?php if ($session->isLoggedIn()) { ?>
         Logged in as <?php echo $session->getUserName(); ?> |
@@ -156,7 +158,7 @@ get_header();
 
 </div>
 
-<div class="booster" ></div>
+<div class="booster topbar_booster" ></div>
 
 <?php
 

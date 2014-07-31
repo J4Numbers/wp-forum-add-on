@@ -40,10 +40,10 @@ class PostBBCodes implements JBBCode\CodeDefinitionSet {
         $builder->setUseOption(true);
         array_push($this->definitions, $builder->build());
 
-        $builder = new JBBCode\CodeDefinitionBuilder('nsfw', '<span class="nsfw">{param}</span>');
+        $builder = new JBBCode\CodeDefinitionBuilder('nsfw', '<span class="nsfw" onclick="ipod_show(this);">{param}</span>');
         array_push($this->definitions, $builder->build());
 
-        $builder = new JBBCode\CodeDefinitionBuilder('spoiler','<span class="spoiler">{param}</span>');
+        $builder = new JBBCode\CodeDefinitionBuilder('spoiler','<span class="spoiler" onclick="ipod_show(this);">{param}</span>');
         array_push($this->definitions, $builder->build());
 
         $builder = new JBBCode\CodeDefinitionBuilder('youtube',
