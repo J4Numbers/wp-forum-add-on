@@ -27,9 +27,16 @@ require_once $home_dir."classes/ForumManager.php";
 require_once $home_dir."classes/JBBCode/Parser.php";
 require_once $home_dir."classes/PostBBCodes.php";
 
-if (!defined("CY_FORUM_PREFIX") || defined("CY_DB_WAITING") ) {
-    if ( $_GET['mode'] != "install" ) {
+if ($_GET["mode"]=="installed") {
+    $test = new ForumManager($home_dir,CY_FORUM_PREFIX,$table_prefix);
+    if (!$test->installed()) {
         header("Location: ".site_url('/wp-forum-install.php'));
+    }
+} else {
+    if (!defined("CY_FORUM_PREFIX") || defined("CY_DB_WAITING") ) {
+        if ( $_GET['mode'] != "install" ) {
+            header("Location: ".site_url('/wp-forum-install.php'));
+        }
     }
 }
 
@@ -133,6 +140,10 @@ get_header();
 
             case "install" :
                 require_once $home_dir."forum/install.php";
+                break;
+
+            case "installed" :
+                require_once $home_dir."forum/installed.php";
                 break;
 
             default : {

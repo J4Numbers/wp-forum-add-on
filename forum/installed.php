@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2014 Matthew David Ball (numbers@cynicode.co.uk)
  *
@@ -15,18 +16,23 @@
  * limitations under the License.
  */
 
-/**
- * This is what the config file should look like, minus all the comments
- * in any case.
- */
-define("CY_FORUM_PREFIX","prefix");
-define("CY_DB_WAITING","1");
+?>
 
-/**
- * Simples. If your file was not writable, just copy and paste the line
- * above into wp-forum-config.php and change the 'prefix' string to whatever
- * you want... within reason anyway. Can't be having any of those pesky spaces.
- *
- * Once you've successfully installed the database, remove the second line.
- * From then on, you have an installed forum, congratularations!
- */
+<div class="forum wide" >
+
+    <div class="head" >
+        <h2 class="head_title" >Congratulations</h2>
+        <p class="head_desc" >Your Forum is Installed</p>
+    </div>
+
+    <div class="booster"></div>
+
+    <div class="post" >
+        <div class="post_data" >
+            <p>Congratulations! Your forum is now installed!</p>
+        </div>
+    </div>
+
+    <div class="booster" ></div>
+
+</div>
