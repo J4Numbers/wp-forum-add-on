@@ -27,6 +27,21 @@ class ForumManager extends CentralDatabase {
         parent::executeStatement(parent::makePreparedStatement($sql));
     }
 
+    public function installed() {
+
+        $sql = "SELECT COUNT(*) as `total` FROM `~posts`";
+
+        try {
+
+            parent::executeStatement(parent::makePreparedStatement($sql));
+            return true;
+
+        } catch(PDOException $e) {
+            return false;
+        }
+
+    }
+
     public function getAllHeads() {
 
         $sql = "SELECT * FROM `~heads` ORDER BY `order` ASC";
