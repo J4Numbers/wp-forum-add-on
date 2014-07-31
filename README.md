@@ -42,7 +42,6 @@ To-Do List
 
 - Add icons for the Categories
 - Add in major documentation
-- Create style for use on a mobile device
 
 Personal Notes
 --------------------------------
