@@ -42,6 +42,21 @@ if (!$cat)
             </div>
             <div class="content" >
                 <p><label for="thread_content">Thread Contents</label></p>
+                <ul class="reply_bbcode" >
+                    <li onclick="generateBBCode('[b][/b]','#thread_content');">b</li>
+                    <li onclick="generateBBCode('[i][/i]','#thread_content');">i</li>
+                    <li onclick="generateBBCode('[u][/u]','#thread_content');">u</li>
+                    <li onclick="generateBBCode('[color=#000000]Text[/color]','#thread_content');">color</li>
+                    <li onclick="generateBBCode('[size=1]Text[/size]','#thread_content');">size</li>
+                    <li onclick="generateBBCode('[strike][/strike]','#thread_content');">strike</li>
+                    <li onclick="generateBBCode('[url=Link]Text[/url]','#thread_content');">url</li>
+                    <li onclick="generateBBCode('[img][/img]','#thread_content');">img</li>
+                    <li onclick="generateBBCode('[spoiler][/spoiler]','#thread_content');">spoiler</li>
+                    <li onclick="generateBBCode('[quote=Name][/quote]','#thread_content');">quote</li>
+                    <li onclick="generateBBCode('[nsfw][/nsfw]','#thread_content');">nsfw</li>
+                    <li onclick="generateBBCode('[youtube][/youtube]','#thread_content');">youtube</li>
+                </ul>
+                <div class="line" ></div>
                 <textarea id="thread_content" name="content" class="input" ></textarea>
             </div>
             <div class="thread_submit">

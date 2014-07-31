@@ -48,7 +48,7 @@ class PostBBCodes implements JBBCode\CodeDefinitionSet {
 
         $builder = new JBBCode\CodeDefinitionBuilder('youtube',
             '<object class="youtube" type="application/x-shockwave-flash"
-              data="http://www.youtube.com/v/{param}?controls=0&amp;modestbranding=1">
+              data="http://www.youtube.com/v/{param}?controls=1&amp;modestbranding=1">
                 <param name="movie" value="http://www.youtube.com/v/{param}?controls=0&amp;modestbranding=1">
              </object>');
         array_push($this->definitions, $builder->build());
