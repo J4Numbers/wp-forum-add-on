@@ -388,45 +388,22 @@ class ForumManager extends CentralDatabase {
 
     }
 
-    public function editHead($id, $title, $desc, $pos) {
+    public function editHead($id, $title, $desc) {
 
-        $head = $this->getHeadInfo($id);
-
-        if ($head['pos'] == $pos-1)
-            $pos = $head['pos'];
-
-        $vars3 = array(
+        $vars = array(
             ":id" => $id,
             ":title" => $title,
-            ":desc" => $desc,
-            ":pos" => $pos
+            ":desc" => $desc
         );
 
-        $vars1 = array(
-            ":pos" => $head['pos'],
-        );
-
-        $vars2 = array(
-            ":pos" => $pos
-        );
-
-        $sql3 = "UPDATE `~heads` SET
+        $sql = "UPDATE `~heads` SET
                   `name` = :title,
-                  `desc` = :desc,
-                  `order` = :pos
-                WHERE `ID`=:id";
-
-        $sql1 = "UPDATE `~heads` SET `order`=`order`-1
-                WHERE `order` >= :pos";
-
-        $sql2 = "UPDATE `~heads` SET `order`=`order`+1
-                WHERE `order` >= :pos";
+                  `desc` = :desc
+                 WHERE `ID`=:id";
 
         try {
 
-            parent::executePreparedStatement(parent::makePreparedStatement($sql1),$vars1);
-            parent::executePreparedStatement(parent::makePreparedStatement($sql2),$vars2);
-            parent::executePreparedStatement(parent::makePreparedStatement($sql3),$vars3);
+            parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
 
         } catch (PDOException $e) {
             die($e->getMessage());

@@ -30,7 +30,7 @@ if (!$session->canAdmin())
     header("Location: ".site_url("/forum/"));
 
 if ($_POST['id']!=0) {
-    $forum->editHead($_POST['id'],$_POST['title'],$_POST['desc'],$_POST['order']);
+    $forum->editHead($_POST['id'],$_POST['title'],$_POST['desc']);
 } else {
     $forum->addHead($_POST['title'],$_POST['desc'],$_POST['order']);
 }
