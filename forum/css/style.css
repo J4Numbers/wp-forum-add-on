@@ -47,8 +47,16 @@ a:hover {
   color: #000000;
 }
 
+.spoiler > * {
+  visibility:hidden;
+}
+
 .spoiler:hover {
   color:#ffffff;
+}
+
+.spoiler:hover > * {
+  visibility:visible;
 }
 
 .author {
@@ -74,6 +82,11 @@ blockquote.quote > .quoted {
 .booster {
   clear:both;
   height:10px;
+}
+
+.line {
+  clear:both;
+  height:1px;
 }
 
 #spacing {
@@ -313,6 +326,11 @@ blockquote.quote > .quoted {
   float: right;
   width: 80%;
   border-bottom: 1px none #999;
+}
+
+.post_data img {
+  max-width:500px;
+  max-height:500px;
 }
 
 .post:after, .cat:after, .thread:after {

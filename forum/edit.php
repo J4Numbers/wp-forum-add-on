@@ -49,6 +49,21 @@ $thread = $forum->getThreadInfo($post['thread']);
 
         <div class="edit_reply" >
             <p><label for="edit_reply">Thread Reply</label></p>
+            <ul class="reply_bbcode" >
+                <li onclick="generateBBCode('[b][/b]','#edit_reply');">b</li>
+                <li onclick="generateBBCode('[i][/i]','#edit_reply');">i</li>
+                <li onclick="generateBBCode('[u][/u]','#edit_reply');">u</li>
+                <li onclick="generateBBCode('[color=#000000]Text[/color]','#edit_reply');">color</li>
+                <li onclick="generateBBCode('[size=1]Text[/size]','#edit_reply');">size</li>
+                <li onclick="generateBBCode('[strike][/strike]','#edit_reply');">strike</li>
+                <li onclick="generateBBCode('[url=Link]Text[/url]','#edit_reply');">url</li>
+                <li onclick="generateBBCode('[img][/img]','#edit_reply');">img</li>
+                <li onclick="generateBBCode('[spoiler][/spoiler]','#edit_reply');">spoiler</li>
+                <li onclick="generateBBCode('[quote=Name][/quote]','#edit_reply');">quote</li>
+                <li onclick="generateBBCode('[nsfw][/nsfw]','#edit_reply');">nsfw</li>
+                <li onclick="generateBBCode('[youtube][/youtube]','#edit_reply');">youtube</li>
+            </ul>
+            <div class="line" ></div>
             <textarea id="edit_reply" name="reply" class="input" ><?php
                 echo $forum->washText($post['content']);
             ?></textarea>

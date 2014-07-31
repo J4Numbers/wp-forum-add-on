@@ -106,8 +106,9 @@ $viewable = $forum->generateViewablePages($cur_page,$pages,'thread',$_GET['id'],
                     <li onclick="generateBBCode('[nsfw][/nsfw]','#reply_content');">nsfw</li>
                     <li onclick="generateBBCode('[youtube][/youtube]','#reply_content');">youtube</li>
                 </ul>
+                <div class="line" ></div>
                 <textarea class="reply_content" id="reply_content" name="reply" ></textarea>
-                <input type="submit" class="reply_submit" />
+                <input type="submit" class="reply_submit" value="Reply" />
             </form>
 
         <?php } else { ?>
