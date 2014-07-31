@@ -42,6 +42,7 @@ function toggleMature() {
 
 function resetHeadId() {
     $('#a_head_id').val(0);
+    $('#a_head_order').prop('disabled',false);
 }
 
 function resetCatId() {
@@ -57,6 +58,7 @@ function editHead(id) {
         $('#a_head_title').val(head.name);
         $('#a_head_desc').val(head.desc);
         $('#a_head_order').val(head.ID);
+        $('#a_head_order').prop('disabled',true);
     });
 
 }

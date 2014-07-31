@@ -73,10 +73,10 @@ if ($_GET['mode']=="thread") {
 
 ?>
 
-<link type="text/css" rel="stylesheet" href="<?php echo site_url('/forum/css/style.css'); ?>" />
 <script type="text/javascript" src="<?php echo site_url('/forum/js/essentials.js');?>"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" ></script>
 <script type="text/javascript" src="<?php echo site_url('/forum/js/insert.js'); ?>" ></script>
+<link type="text/css" rel="stylesheet" href="<?php echo site_url('/forum/css/style.css'); ?>" />
 
 <?php
 
