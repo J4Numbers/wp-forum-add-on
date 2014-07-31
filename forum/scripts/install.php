@@ -37,8 +37,9 @@ try {
         if (!is_writable(site_url('/wp-forum-config.php'))) {
             die("
                 <p>File was not writable. Please add in the following lines to 'wp-forum-config.php':</p>
-                <p>define('CY_FORUM_PREFIX','".$_POST['prefix']."');</p>
-                <p>define('CY_DB_WAITING','1');</p>");
+                <code>define('CY_FORUM_PREFIX','".$_POST['prefix']."');
+define('CY_DB_WAITING','1');</code>
+                <p>Once this has been done, go back to 'wp-forum-install.php' to continue.");
         } else {
 
             $handle = fopen(site_url('/wp-forum-config.php'),'a');

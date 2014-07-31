@@ -29,7 +29,22 @@
 
     <div class="post" >
         <div class="post_data" >
-            <p>Congratulations! Your forum is now installed!</p>
+            <p>
+                Congratulations! Your forum is now installed!
+            </p>
+            <p>
+                To use your forum, please go into your wp-forum-config.php file and remove the line containing
+                DB_WAITING.
+            </p>
+            <p>
+                After doing this, you should be able to use your forum normally.
+            </p>
+            <p>
+                Thank you for choosing this system.
+            </p>
+            <p>
+                CyniCode
+            </p>
         </div>
     </div>
 
