@@ -30,6 +30,11 @@ window.onload = function() {
     }
 };
 
+function ipod_show(item) {
+    $(item).prop('color','#ffffff');
+    $(item).prop('visibility',true);
+}
+
 function toggleMature() {
     if (localStorage['allow_mature']!=1) {
         var c = confirm("Please confirm that you are of the legal age to view mature material in your country.");

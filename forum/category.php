@@ -31,6 +31,7 @@ $viewable = $forum->generateViewablePages($cur_page,$pages,'cat',$_GET['id'],$ra
     <div class="head" >
         <h2 class="head_title" ><?php echo $forum->washText($cat['name']); ?></h2>
         <p class="head_desc" ><?php echo $forum->washText($cat['desc']); ?></p>
+        <div class="iphone_line" ></div>
         <ul class="head_pages">
             <?php echo $viewable; ?>
         </ul>

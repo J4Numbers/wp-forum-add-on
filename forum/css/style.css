@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@import url("mobile.css");
+
 a {
   text-decoration:none;
 }
@@ -92,7 +94,6 @@ blockquote.quote > .quoted {
 #spacing {
   width: 90%;
   margin:0 auto;
-  background-color:#cfcfcf;
 }
 
 .admin_table > table {
@@ -305,7 +306,7 @@ blockquote.quote > .quoted {
 }
 
 .post_created, .post_creator, .post_functions,
-.post_perma, .post_quote {
+.post_perma, .post_quote, .post_edited {
   margin:0;
   padding:0;
   text-align:center;
@@ -314,7 +315,7 @@ blockquote.quote > .quoted {
 .post_creator {
 }
 
-.post_created {
+.post_created, .post_edited {
   font-size: 10px;
 }
 

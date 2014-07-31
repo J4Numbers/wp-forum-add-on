@@ -42,6 +42,29 @@ class ForumManager extends CentralDatabase {
 
     }
 
+    public function getUserName($id) {
+
+        $vars = array(":id" => $id);
+
+        $sql = "SELECT `display_name` FROM `#users`
+                WHERE `ID`=:id";
+
+        try {
+
+            $res = parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
+
+            if ($res->rowCount()==0)
+                return false;
+
+            $row = $res->fetch();
+            return $row['display_name'];
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+
+    }
+
     public function getAllHeads() {
 
         $sql = "SELECT * FROM `~heads` ORDER BY `order` ASC";
@@ -325,7 +348,7 @@ class ForumManager extends CentralDatabase {
 
         $sql = "SELECT t.*, `display_name` FROM `~threads` t
                 INNER JOIN `#users` u ON u.`ID`=t.`creator`
-                ORDER BY `time` LIMIT 3";
+                ORDER BY `time` DESC LIMIT 3";
 
         try  {
 
@@ -520,6 +543,8 @@ class ForumManager extends CentralDatabase {
         try {
 
             parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
+
+            return parent::getLastInsertId();
 
         } catch (PDOException $e) {
             die($e->getMessage());

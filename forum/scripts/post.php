@@ -42,11 +42,12 @@ if (isset($_POST['id'])) {
     );
 
 } else {
-    $forum->addPostToThread(
+    $id = $forum->addPostToThread(
         $_POST['thread'],
         $session->getUserId(),
         $_POST['reply']
     );
 }
 
-header("Location: ". site_url('/forum/index.php?mode=thread&id='.$_POST['thread']) );
+$id = (isset($_POST['id'])) ? $_POST['id'] : $id;
+header("Location: ". site_url('/forum/index.php?mode=thread&id='.$_POST['thread']).'#p'.$id );
