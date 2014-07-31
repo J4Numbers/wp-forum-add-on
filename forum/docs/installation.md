@@ -1,14 +1,5 @@
-WP Forum Add-on
-================================
-
-Introduction
---------------------------------
-
-This is a basic forum which has been tacked onto Wordpress. It uses the Wordpress user database and the permissions
-that those users have.
-
 Installation
---------------------------------
+========================
 
 To install this forum, download the code and drag it into the root of your Wordpress installation. For example,
 if Wordpress is installed in a '/blog/' directory, just drag the contents of the folder into there.
@@ -35,16 +26,3 @@ If you have any suggestions/improvements, leave an issue in this repo or send an
 e-mail to [numbers@cynicode.co.uk](mailto:numbers@cynicode.co.uk).
 
 Good Day.
-
-
-To-Do List
---------------------------------
-
-- Add icons for the Categories
-- Add in major documentation
-- Create style for use on a mobile device
-
-Personal Notes
---------------------------------
-
-- wp-forum-config.php is marked as assume-unchanged
