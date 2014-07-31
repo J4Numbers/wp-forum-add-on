@@ -37,12 +37,13 @@ CREATE TABLE `~threads` (
   `name` VARCHAR(128) NOT NULL,
   `time` INTEGER(11) NOT NULL,
   `creator` BIGINT(20) UNSIGNED NOT NULL,
+  `last_post` INTEGER(11) NOT NULL,
   PRIMARY KEY (`ID`),
   FOREIGN KEY (`cat`) REFERENCES `~cats`(`ID`),
   FOREIGN KEY (`creator`) REFERENCES `#users`(`ID`)
 );
 
-INSERT INTO `~threads` (`cat`,`name`,`time`,`creator`) VALUES ('1','Your First Thread','1','1');
+INSERT INTO `~threads` (`cat`,`name`,`time`,`creator`,`last_post`) VALUES ('1','Your First Thread','1','1','1');
 
 CREATE TABLE `~posts` (
   `ID` INTEGER(11) NOT NULL AUTO_INCREMENT,

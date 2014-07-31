@@ -199,10 +199,10 @@ class ForumManager extends CentralDatabase {
         );
 
         $sql = sprintf(
-            "SELECT t.`ID`,`name`,`cat`,`time`,`creator`,`display_name`
+            "SELECT t.`ID`,`name`,`cat`,t.`time`,`creator`,`display_name`,`last_post`
             FROM `~threads` t
             INNER JOIN `#users` u ON u.`ID`=t.`creator`
-            WHERE `cat`=:cat ORDER BY `time` DESC
+            WHERE `cat`=:cat ORDER BY t.`last_post` DESC
             LIMIT %d,%d",(($page-1)*$limit),$limit);
 
         try {
@@ -486,17 +486,39 @@ class ForumManager extends CentralDatabase {
             ":cat" => $cat,
             ":poster" => $poster,
             ":title" => $title,
-            ":time" => time()
+            ":time" => time(),
+            ":time2" => time()
         );
 
         $sql = "INSERT INTO `~threads`
-                (`cat`,`name`,`time`,`creator`) VALUES
-                (:cat, :title, :time, :poster)";
+                (`cat`,`name`,`time`,`creator`,`last_post`) VALUES
+                (:cat, :title, :time, :poster, :time2)";
 
         try {
 
             parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
             return parent::getLastInsertId();
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+
+    }
+
+    public function updateThreadTime($id) {
+
+        $vars = array(
+            ":id" => $id,
+            ":time" => time()
+        );
+
+        $sql = "UPDATE `~threads` SET
+                `last_post`=:time
+                WHERE `ID`=:id";
+
+        try {
+
+            parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
 
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -543,6 +565,7 @@ class ForumManager extends CentralDatabase {
         try {
 
             parent::executePreparedStatement(parent::makePreparedStatement($sql),$vars);
+            $this->updateThreadTime($thread);
 
             return parent::getLastInsertId();
 
