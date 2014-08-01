@@ -41,7 +41,8 @@ To-Do List
 --------------------------------
 
 - Add icons for the Categories
-- Add in major documentation
+- Think of things to add to this list which is not a perpetual 'minor tweaking' item
+- Minor tweaking
 
 Personal Notes
 --------------------------------
