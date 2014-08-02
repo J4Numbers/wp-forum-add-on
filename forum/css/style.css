@@ -67,7 +67,8 @@ a:hover {
 }
 
 blockquote.quote {
-  background-color:#c1c1c1;
+  background-color:#bcdeff;
+  color:#212121;
   border: 2px solid #666666;
   padding: 10px;
 }
@@ -130,6 +131,11 @@ blockquote.quote > .quoted {
   margin:0 auto;
   background-color:#d0d0d0;
   border-radius:5px;
+}
+
+#edit_reply {
+  width: 100%;
+  resize:vertical;
 }
 
 #f_user_login, #f_user_pass {
@@ -327,6 +333,10 @@ blockquote.quote > .quoted {
   float: right;
   width: 80%;
   border-bottom: 1px none #999;
+}
+
+.post_data > p {
+  margin: 5px 0;
 }
 
 .post_data img {
